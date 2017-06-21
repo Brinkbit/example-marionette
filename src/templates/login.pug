@@ -1,0 +1,20 @@
+form(action='#')
+    .alerts
+        if( error.description )
+            .alert.alert-danger.alert-dismissable
+            button.close(type='button', data-dismiss='alert') &times;
+                error.description
+    .form-group&attributes({ class: error.details.username ? "has-error" : "" })
+        input.form-control(type='text', name='username', value=username, placeholder='Username or Email')
+        span.help-block.username
+            = error.details.username && error.details.username.indexOf( 'missing' ) !== -1 ? 'username is required' : ''
+    .form-group&attributes({ class: error.details.password ? "has-error" : "" })
+        input.form-control(type='password', name='password', value=password, placeholder='Password')
+        span.help-block.password
+            = error.details.password && error.details.password.indexOf( 'missing' ) !== -1 ? 'password is required' : ''
+    .form-actions.text-center
+        button.btn.btn-primary.btn-login(type='button', name='submit') Log In
+p Don't have an account?
+p Create one&nbsp;
+    a(href='#signup') here
+    | .

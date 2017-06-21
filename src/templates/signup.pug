@@ -1,0 +1,26 @@
+form(action='#')
+    .form-group&attributes({ class: error.details.username ? "has-error" : "" })
+        input.form-control(type='text', name='username', value=username, placeholder='Username')
+        span.help-block.username
+            if ( error.details.username )
+                = errorHash['username_' + error.details.username] || 'invalid username'
+    .form-group&attributes({ class: error.details.email ? "has-error" : "" })
+        input.form-control(type='text', name='email', value=email, placeholder='E-mail Address')
+        span.help-block.email
+            if ( error.details.email )
+                = errorHash['email_' + error.details.email] || 'invalid email'
+    .form-group&attributes({ class: error.details.password ? "has-error" : "" })
+        input.form-control(type='password', name='password', value=password, placeholder='Password')
+        span.help-block.password
+            if ( error.details.password )
+                print( errorHash['password_' + error.details.password] || 'invalid password' )
+    .form-group
+        button.btn.btn-primary.btn-signup(type='button', name='submit') Create account
+        |&nbsp;
+        |&nbsp;
+p.text-center
+    | Already have an account?
+    br
+    | Log In&nbsp;
+    a(href='#login') here
+    | .

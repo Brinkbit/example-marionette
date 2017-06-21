@@ -1,0 +1,15 @@
+{
+  "apps": [{
+    "name": "app",
+    "script": "./src/app.js",
+    "watch": ["src"],
+    "ignore_watch": ["bundle.js", "**/views", "libs/clientSDK.js"],
+    "watch_options": {
+      "useFsEvents": false,
+      "followSymlinks": false,
+      "persistent": true,
+      "ignoreInitial": true,
+      "usePolling": true
+    }
+  }]
+}
