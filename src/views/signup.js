@@ -3,9 +3,7 @@
 const Backbone = require( 'backbone' );
 const Mn = require( 'backbone.marionette' );
 const $ = require( 'jquery' );
-const Brinkbit = require( 'brinkbit.js' );
 
-const env = require( '../../env' );
 const template = require( '../templates/signup.pug' );
 
 const SignupView = Mn.View.extend({
@@ -21,9 +19,9 @@ const SignupView = Mn.View.extend({
         'keypress @ui.betaKey': 'signupOnEnter',
         'click @ui.submit': 'signup',
     },
-    initialize: function initialize() {
+    initialize: function initialize( options ) {
         this.listenTo( this.model, 'change', this.render );
-        this.brinkbit = new Brinkbit( env.client.config );
+        this.brinkbit = options.brinkbit;
     },
     onRender: function onRender() {
         this.getUI( 'username' ).focus();
@@ -45,11 +43,8 @@ const SignupView = Mn.View.extend({
             password: this.getUI( 'password' ).val(),
         };
         this.getUI( 'submit' ).attr( 'disabled', true );
-        this.brinkbit.user().create( user )
-        .then(() => this.brinkbit.login({
-            username: user.username,
-            password: user.password,
-        }))
+        this.brinkbit.Player.create( user )
+        .then( player => player.login())
         .then(() => {
             Backbone.history.navigate( 'app', { trigger: true });
         })

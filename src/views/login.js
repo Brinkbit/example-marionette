@@ -3,10 +3,8 @@
 const Backbone = require( 'backbone' );
 const Mn = require( 'backbone.marionette' );
 const $ = require( 'jquery' );
-const Brinkbit = require( 'brinkbit.js' );
 
 const template = require( '../templates/login.pug' );
-const env = require( '../../env' );
 
 const LoginView = Mn.View.extend({
     template,
@@ -14,6 +12,7 @@ const LoginView = Mn.View.extend({
         username: 'input[name="username"]',
         password: 'input[name="password"]',
         login: 'button[name="submit"]',
+        stayLoggedIn: 'input[name="stayLoggedIn"]',
     },
     events: {
         'submit form': 'preventSubmit',
@@ -44,6 +43,7 @@ const LoginView = Mn.View.extend({
         this.brinkbit.login({
             username: this.getUI( 'username' ).val(),
             password: this.getUI( 'password' ).val(),
+            stayLoggedIn: this.getUI( 'stayLoggedIn' ).is( ':checked' ),
         })
         .then(() => {
             Backbone.history.navigate( 'app', { trigger: true });
@@ -53,8 +53,8 @@ const LoginView = Mn.View.extend({
             this.getUI( 'login' ).attr( 'disabled', false );
         });
     },
-    initialize: function initialize() {
-        this.brinkbit = new Brinkbit( env.client.config );
+    initialize: function initialize( options ) {
+        this.brinkbit = options.brinkbit;
     },
 });
 
