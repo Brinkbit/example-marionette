@@ -12,6 +12,9 @@ form(action='#')
         input.form-control(type='password', name='password', value=password, placeholder='Password')
         span.help-block.password
             = error.details.password && error.details.password.indexOf( 'missing' ) !== -1 ? 'password is required' : ''
+    .form-group
+        input#stay-logged-in(type='checkbox', name='stayLoggedIn')
+        label(for='stay-logged-in') stay logged in
     .form-actions.text-center
         button.btn.btn-primary.btn-login(type='button', name='submit') Log In
 p Don't have an account?
